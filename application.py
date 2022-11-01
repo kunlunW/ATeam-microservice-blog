@@ -55,11 +55,13 @@ def post_blog():
 
             DatabaseOperations.new_blog_post(title, content, post_time)
 
-
-    dictionary = {'status': 'success', 'data': {'title': 'My first blog', 'description': "Hello World"}}
-    jsonString = json.dumps(dictionary, indent=4)
-    return jsonString
-
+            dictionary = {'status': 'success', 'data': {'title': 'My first blog', 'description': "Hello World"}}
+            jsonString = json.dumps(dictionary, indent=4)
+            return jsonString
+    else:
+        failure_message = {'status': 'fail', 'message': 'Log in required'}
+        fail_response = Response(json.dumps(failure_message), status=200, content_type="application.json")
+        return fail_response
 
 if __name__ == "__main__":
     app.debug = True

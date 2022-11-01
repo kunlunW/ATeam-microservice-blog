@@ -28,7 +28,11 @@ export class AddPostComponent {
         if(res['status'] === 'success') {
           this.router.navigate(['/home']);
         } else {
-          alert('Posting failed, please try again');
+          if(res['message'] === 'Log in required'){
+            alert('Please Log In before Posting');
+          }else{
+            alert('Posting failed, please try again');
+          } 
         }
   		}, error => {
         console.log('error is ', error);
