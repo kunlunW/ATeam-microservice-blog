@@ -74,9 +74,14 @@ class DatabaseOperations:
         cur = conn.cursor()
         res = cur.execute(sql, args=(new_blog_id, CURRENT_USER_ID, blog_title, blog_content, post_time, str(total_post)))
         if res:
-            print("success")
+            posting_success = {'status': 'success', 'message': 'Successfully Posted'}
+            success_response = Response(json.dumps(posting_success), status=200, content_type="application.json")
+            return success_response
         else:
-            print("failed")
+            posting_failed = {'status': 'fail', 'message': 'Posting Failed'}
+            fail_response = Response(json.dumps(posting_failed), status=200, content_type="application.json")
+            return fail_response
+
 
    
 

@@ -24,7 +24,15 @@ export class AddPostComponent {
   		this.addPostService.addPost(this.post).subscribe(res =>{
   			this.closeBtn.nativeElement.click();
         this.commonService.notifyPostAddition();
-  		});
+        console.log('result is ', res);
+        if(res['status'] === 'success') {
+          this.router.navigate(['/home']);
+        } else {
+          alert('Posting failed, please try again');
+        }
+  		}, error => {
+        console.log('error is ', error);
+      });
   	} else {
   		alert('Title and Content required');
   	}
