@@ -26,7 +26,7 @@ export class AddPostComponent {
         this.commonService.notifyPostAddition();
   		});
   	} else {
-  		alert('Title and Description required');
+  		alert('Title and Content required');
   	}
   }
 
