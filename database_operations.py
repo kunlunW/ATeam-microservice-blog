@@ -7,7 +7,7 @@ from flask_mysqldb import MySQL
 import os
 
 #TODO: INIT TO None
-CURRENT_USER_ID = "7d529dd4-548b-4258-aa8e-23e34dc8d43d"
+CURRENT_USER_ID = ''
 
 class DatabaseOperations:
 
@@ -39,7 +39,8 @@ class DatabaseOperations:
         res = cur.execute(sql, args=(first_name, password,))
         result = cur.fetchone()
         if result:
-            found_user_message = {'status': 'success', 'message': 'Successfully found user'}
+            CURRENT_USER_ID = result['unique_user_id']
+            found_user_message = {'status': 'success', 'message': 'Successfully found user', 'user_id': CURRENT_USER_ID}
             found_response = Response(json.dumps(found_user_message), status=200, content_type="application.json")
             # if credential validation success, update CURRENT_USER_ID
             return found_response
@@ -49,7 +50,7 @@ class DatabaseOperations:
             return fail_response
 
     @staticmethod
-    def new_blog_post(blog_title, blog_content, post_time):
+    def new_blog_post(user_id, blog_title, blog_content, post_time):
         #init vars
         new_blog_id = ""
         total_post = 0 
@@ -58,21 +59,21 @@ class DatabaseOperations:
         sql = "SELECT owner_id, MAX(total_post) AS max_count FROM cs6156_login_microservice.blog_info WHERE owner_id = %s GROUP BY owner_id";
         conn = DatabaseOperations._get_connection()
         cur = conn.cursor()
-        res = cur.execute(sql, args=(CURRENT_USER_ID))
+        res = cur.execute(sql, args=(user_id))
         result = cur.fetchone()
         
         if result:
             new_blog_id =  result["owner_id"] + "-" + str(int(result["max_count"]) + 1)
             total_post = int(result["max_count"]) + 1
         else:
-            new_blog_id = CURRENT_USER_ID + "-" + str(1)
+            new_blog_id = user_id + "-" + str(1)
             total_post = 1
         
         #enter new entry into blog_info table
         sql = "INSERT INTO cs6156_login_microservice.blog_info VALUES (%s, %s, %s, %s, %s, %s)";
         conn = DatabaseOperations._get_connection()
         cur = conn.cursor()
-        res = cur.execute(sql, args=(new_blog_id, CURRENT_USER_ID, blog_title, blog_content, post_time, str(total_post)))
+        res = cur.execute(sql, args=(new_blog_id, user_id, blog_title, blog_content, post_time, str(total_post)))
         if res:
             posting_success = {'status': 'success', 'message': 'Successfully Posted'}
             success_response = Response(json.dumps(posting_success), status=200, content_type="application.json")

@@ -12,6 +12,7 @@ import { AddPostComponent } from './add-post/add-post.component';
 import { CommonService } from './service/common.service';
 
 
+
 @NgModule({
   declarations: [
   	RootComponent,
