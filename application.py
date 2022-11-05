@@ -11,7 +11,6 @@ app = Flask(__name__)
 CORS(app)
 
 
-
 @app.get("/api/health")
 def get_health():
     t = str(datetime.now())
@@ -27,9 +26,9 @@ def get_health():
     return result
 
 
-@app.route("/api/user/login", methods=["POST"])
+@app.route("/login", methods=["POST"])
 def check_user_login():
-
+    print("signed in")
     content_type = request.headers.get('Content-Type')
     if content_type == 'application/json':
         user_login_info = request.json
@@ -43,7 +42,7 @@ def check_user_login():
     return jsonString
 
 
-@app.route("/api/post/createPost", methods=["POST", "GET"])
+@app.route("/createPost", methods=["POST", "GET"])
 def post_blog():
     if CURRENT_USER_ID is not None:
         content_type = request.headers.get('Content-Type')
@@ -51,6 +50,7 @@ def post_blog():
             new_blog = request.json
             title = new_blog["title"]
             content = new_blog["description"]
+            print(title)
             post_time = str(datetime.now())
 
             DatabaseOperations.new_blog_post(title, content, post_time)

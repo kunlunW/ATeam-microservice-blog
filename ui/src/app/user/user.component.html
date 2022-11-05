@@ -1,0 +1,26 @@
+<!--search user by id/last name/email-->
+<form id="search-user-form" [formGroup]="searchUserForm" (ngSubmit)="searchUser()">
+  <input class="search-user-fields" type="text" formControlName="id" placeholder="id">
+  <input class="search-user-fields" type="text" formControlName="lname" placeholder="last name">
+  <input class="search-user-fields" type="text" formControlName="email" placeholder="email">
+  <button class="btn btn-outline-success my-2 my-sm-0" id="search-submit-btn" type="submit">Search</button>
+</form>
+
+<br><br>
+
+<!--pagination for matching users-->
+<table class="table table-bordered">
+  <tr>
+    <th>ID</th>
+    <th>First Name</th>
+    <th>Last Name</th>
+    <th>Email</th>
+  </tr>
+  <tr *ngFor="let user of users| paginate: { itemsPerPage: 4, currentPage: p}">
+    <td>{{ user.id }}</td>
+    <td>{{ user.first_name }}</td>
+    <td>{{ user.last_name }}</td>
+    <td>{{ user.email_address }}</td>
+  </tr>
+</table>
+<pagination-controls previousLabel="Prev" nextLabel="Next" (pageChange)="p = $event"></pagination-controls>

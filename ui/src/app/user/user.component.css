@@ -1,0 +1,22 @@
+#search-submit-btn {
+  background-color: #27A746;
+  color: white;
+  margin: 0%;
+  padding: 0.45%;
+  width: 8%;
+}
+
+#search-submit-btn:hover {
+  background-color: #17792e;
+}
+
+#search-user-form {
+  margin-top: 3%;
+  text-align: center;
+}
+
+#search-user-form input {
+  margin: 0% 2% 0% 0%;
+  padding: 0.5%;
+  width: 25%;
+}

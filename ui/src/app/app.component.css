@@ -1,0 +1,32 @@
+#sign-in-btn,
+#add-post-btn {
+  background-color: #3f93e5;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  padding: 1%;
+  width: 15%;
+  margin-left: 2%;
+  display: inline-block;
+}
+
+#sign-in-btn:hover {
+  background-color: #205f9b;
+  cursor: pointer;
+}
+
+#add-post-btn {
+  background-color: #9370DBFF;
+  padding: 1%;
+  width: 7%;
+}
+
+#add-post-btn:hover {
+  background-color: #623ea4;
+  cursor: pointer;
+}
+
+#navbar-control {
+  width: 50%;
+  text-align: right;
+}
