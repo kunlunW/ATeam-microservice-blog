@@ -7,7 +7,7 @@ from flask_mysqldb import MySQL
 import os
 
 #TODO: INIT TO None
-CURRENT_USER_ID = "7d529dd4-548b-4258-aa8e-23e34dc8d43d"
+CURRENT_USER_ID = '7d529dd4-548b-4258-aa8e-23e34dc8d43d'
 
 class DatabaseOperations:
 
@@ -39,7 +39,8 @@ class DatabaseOperations:
         res = cur.execute(sql, args=(first_name, password,))
         result = cur.fetchone()
         if result:
-            found_user_message = {'status': 'success', 'message': 'Successfully found user'}
+            CURRENT_USER_ID = result['unique_user_id']
+            found_user_message = {'status': 'success', 'message': 'Successfully found user', 'user_id': CURRENT_USER_ID}
             found_response = Response(json.dumps(found_user_message), status=200, content_type="application.json")
             # if credential validation success, update CURRENT_USER_ID
             return found_response

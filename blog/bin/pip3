@@ -1,4 +1,4 @@
-#!/Users/daisywang/Desktop/ATeam-microservice-blog/blog/bin/python3.10
+#!/Users/daisywang/Desktop/ATeam-microservice-blog/blog/bin/python
 # -*- coding: utf-8 -*-
 import re
 import sys

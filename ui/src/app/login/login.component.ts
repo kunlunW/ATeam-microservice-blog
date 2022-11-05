@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.css'],
   providers: [ LoginService ]
 })
+
 export class LoginComponent {
 
   public user : User;
