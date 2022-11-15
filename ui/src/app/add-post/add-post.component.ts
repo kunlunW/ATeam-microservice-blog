@@ -22,13 +22,13 @@ export class AddPostComponent {
   addPost() {
     if(this.post.title && this.post.description){
       this.addPostService.addPost(this.post).subscribe({
-        next: (response) => {
+        next: (response: any) => {
           this.closeBtn.nativeElement.click();
           this.commonService.notifyPostAddition();
           console.log("here")
           console.log(response)
         },
-        error: (error) => {
+        error: (error: any) => {
           alert('Failed to Post New Blog')
         }
       });

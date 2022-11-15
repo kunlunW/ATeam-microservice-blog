@@ -62,19 +62,26 @@ class DatabaseOperations:
         cur = conn.cursor()
         res = cur.execute(sql, args=(CURRENT_USER_ID))
         result = cur.fetchone()
+
+        #print("debug info dataoperations-------------------------------", result)
         
         if result:
             new_blog_id =  result["owner_id"] + "-" + str(int(result["max_count"]) + 1)
             total_post = int(result["max_count"]) + 1
+            #print("Type of total post---------------------------------------", type(total_post))
         else:
             new_blog_id = CURRENT_USER_ID + "-" + str(1)
             total_post = 1
         
+        #print("new_id ---------------------------------------------", new_blog_id)
+     
         #enter new entry into blog_info table
         sql = "INSERT INTO cs6156_login_microservice.blog_info VALUES (%s, %s, %s, %s, %s, %s)";
         conn = DatabaseOperations._get_connection()
+        #print("debug connection ---------------------------------------------", conn)
         cur = conn.cursor()
-        res = cur.execute(sql, args=(new_blog_id, CURRENT_USER_ID, blog_title, blog_content, post_time, str(total_post)))
+        res = cur.execute(sql, args=(new_blog_id, CURRENT_USER_ID, blog_title, blog_content, post_time, total_post))
+        #print("debug res ---------------------------------------", res)
         if res:
             posting_success = {'status': 'success', 'message': 'Successfully Posted'}
             success_response = Response(json.dumps(posting_success), status=200, content_type="application.json")

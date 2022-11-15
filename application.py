@@ -43,11 +43,12 @@ def post_blog():
         content_type = request.headers.get('Content-Type')
         if content_type == 'application/json':
             new_blog = request.json
+            #print("debug info---------------------------------------------", new_blog)
             title = new_blog["title"]
             content = new_blog["description"]
             post_time = str(datetime.now())
 
-            DatabaseOperations.new_blog_post(title, content, post_time)
+            return DatabaseOperations.new_blog_post(title, content, post_time)
 
     else: 
         failure_message = {'status': 'fail', 'message': 'Log in required'}
