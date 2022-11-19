@@ -8,3 +8,28 @@
     <small>read more...</small>
   </a>
 </div>
+
+<table class="table table-bordered">
+  <tr>
+    <th>ID</th>
+    <th>Title</th>
+    <th>Content</th>
+    <th>Post time</th>
+  </tr>
+  <tr *ngFor="let post of posts">
+  <!-- <tr> -->
+    <td>
+      {{ post.id }}
+    </td>
+    <td>
+      {{ post.title }}
+    </td>
+    <td>
+      {{ post.description }}
+    </td>
+    <td>
+      {{ post.posttime }}
+    </td>
+  </tr>
+</table>
+<!-- <pagination-controls previousLabel="Prev" nextLabel="Next" (pageChange)="p = $event"></pagination-controls> -->

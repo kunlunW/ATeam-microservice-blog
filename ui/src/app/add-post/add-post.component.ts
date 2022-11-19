@@ -23,10 +23,12 @@ export class AddPostComponent {
     if(this.post.title && this.post.description){
       this.addPostService.addPost(this.post).subscribe({
         next: (response: any) => {
-          this.closeBtn.nativeElement.click();
+          //this.closeBtn.nativeElement.click();
           this.commonService.notifyPostAddition();
           console.log("here")
           console.log(response)
+          var owner_id = '7d529dd4-548b-4258-aa8e-23e34dc8d43d'
+          this.router.navigate(['/'+owner_id+'/posts']);
         },
         error: (error: any) => {
           alert('Failed to Post New Blog')

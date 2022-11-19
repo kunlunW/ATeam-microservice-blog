@@ -3,7 +3,7 @@ from optparse import TitledHelpFormatter
 import pymysql
 from flask import Flask, Response, request
 import json
-from flask_mysqldb import MySQL
+# from flask_mysqldb import MySQL
 import os
 
 #TODO: INIT TO None
@@ -19,7 +19,7 @@ class DatabaseOperations:
     def _get_connection():
 
         usr = "root"
-        pw = "Wd311714@"
+        pw = "dbuserdbuser"
         h = "localhost"
 
         conn = pymysql.connect(
@@ -90,6 +90,18 @@ class DatabaseOperations:
             posting_failed = {'status': 'fail', 'message': 'Posting Failed'}
             fail_response = Response(json.dumps(posting_failed), status=200, content_type="application.json")
             return fail_response
+
+    @staticmethod
+    def get_own_post(owner_id):
+        sql = "SELECT unique_blog_id as id, blog_title as title, blog_content as description, post_time AS posttime FROM cs6156_login_microservice.blog_info Where owner_id = %s;"
+        conn = DatabaseOperations._get_connection()
+        cur = conn.cursor()
+        try:
+            cur.execute(sql,owner_id)
+        except:
+            return None
+        result = cur.fetchall()
+        return result
 
 
    

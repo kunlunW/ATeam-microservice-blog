@@ -43,7 +43,7 @@ def post_blog():
         content_type = request.headers.get('Content-Type')
         if content_type == 'application/json':
             new_blog = request.json
-            #print("debug info---------------------------------------------", new_blog)
+            print("debug info---------------------------------------------", new_blog)
             title = new_blog["title"]
             content = new_blog["description"]
             post_time = str(datetime.now())
@@ -55,6 +55,14 @@ def post_blog():
         fail_response = Response(json.dumps(failure_message), status=200, content_type="application.json")
         return fail_response
    
+@app.route("/<owner_id>/posts", methods=["POST", "GET"])
+def get_blog(owner_id):
+    result = DatabaseOperations.get_own_post(owner_id)
+    if result:
+        response = Response(json.dumps(result, default=str), status=200, content_type="application/json")
+    else:
+        response = Response("404 NOT FOUND", status=404, content_type="application/json")
+    return response
 
 if __name__ == "__main__":
     app.debug = True

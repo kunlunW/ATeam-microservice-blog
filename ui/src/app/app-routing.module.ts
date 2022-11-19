@@ -7,7 +7,7 @@ const routes: Routes = [
   {path: "login", loadChildren: () => import("./login/login.module").then(module => module.LoginModule)},
   {path: "users", loadChildren: () => import("./user/user.module").then(module => module.UserModule)},
   {path: "users/:id", loadChildren: () => import("./user/user.module").then(module => module.UserModule)},
-  {path: "posts", loadChildren: () => import("./post/post.module").then(module => module.PostModule)},
+  {path: ":owner_id/posts", loadChildren: () => import("./post/post.module").then(module => module.PostModule)},
   {path: "createPost", loadChildren: () => import("./add-post/add-post.module").then(module => module.AddPostModule)}
 ]
 
