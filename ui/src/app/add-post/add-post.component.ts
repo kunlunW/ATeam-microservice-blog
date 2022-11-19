@@ -1,0 +1,39 @@
+import { Component, ViewChild, ElementRef } from '@angular/core';
+import { AddPostService } from './add-post.service';
+import { Post } from '../models/post.model';
+import { Router } from '@angular/router';
+import { CommonService } from '../service/common.service';
+
+@Component({
+  selector: 'app-add-post',
+  templateUrl: './add-post.component.html',
+  styleUrls: ['./add-post.component.css'],
+  providers: [ AddPostService, CommonService ]
+})
+export class AddPostComponent {
+
+  @ViewChild('closeBtn') closeBtn: ElementRef<HTMLInputElement> = {} as ElementRef;
+  public post : Post;
+
+  constructor(private addPostService: AddPostService, private router: Router, private commonService: CommonService) {
+    this.post = new Post();
+  }
+
+  addPost() {
+    if(this.post.title && this.post.description){
+      this.addPostService.addPost(this.post).subscribe({
+        next: (response: any) => {
+          this.closeBtn.nativeElement.click();
+          this.commonService.notifyPostAddition();
+          console.log("here")
+          console.log(response)
+        },
+        error: (error: any) => {
+          alert('Failed to Post New Blog')
+        }
+      });
+    } else {
+      alert('Title and Description required');
+    }
+  }
+}
