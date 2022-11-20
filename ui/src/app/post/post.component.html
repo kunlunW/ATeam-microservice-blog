@@ -1,35 +1,52 @@
-<div class="list-group">
+<!-- <div class="list-group">
   <a *ngFor="let post of posts" href="/" class="list-group-item list-group-item-action flex-column align-items-start">
     <div class="d-flex w-100 justify-content-between">
+      <table width="50%" style="float:left;">
+        <tr>
+          <td>
+            {{post.id}}
+          </td>
+          <td>
+            {{post.posttime}}
+          </td>
+        </tr>
+      </table>
+      <table width="50%">
+        <tr>
+          <td>
+            {{post.title}}
+          </td>
+          <td>
+            {{post.description}}
+          </td>
+        </tr>
+      </table>
       <h5 class="mb-1">{{post.title}}</h5>
       <small>3 days ago</small>
     </div>
     <p class="mb-1">{{post.description}}</p>
-    <small>read more...</small>
+    <small>See comment</small>
+  </a>
+</div>  -->
+
+<div class="list-group">
+  <a *ngFor="let post of posts" href="/" class="list-group-item list-group-item-action flex-column align-items-start">
+    <table width="50%" style="float:left;">
+      <tr>
+        <div class="d-flex w-100 justify-content-between">
+          <small>blog id: {{post.id}}</small>
+        </div>
+        <small>{{post.posttime}}</small>
+      </tr>
+    </table>
+    <table width="50%">
+      <tr>
+        <div class="d-flex w-100 justify-content-between">
+          <h5 class="mb-1">title: {{post.title}}</h5>
+        </div>
+        <p class="mb-1">{{post.description}}</p>
+        <small>See comment</small>
+      </tr>
+    </table>
   </a>
 </div>
-<!-- 
-<table class="table table-bordered">
-  <tr>
-    <th>ID</th>
-    <th>Title</th>
-    <th>Content</th>
-    <th>Post time</th>
-  </tr>
-  <tr *ngFor="let post of posts">
-  <!-- <tr> -->
-    <!-- <td>
-      {{ post.id }}
-    </td>
-    <td>
-      {{ post.title }}
-    </td>
-    <td>
-      {{ post.description }}
-    </td>
-    <td>
-      {{ post.posttime }}
-    </td>
-  </tr>
-</table>
-<pagination-controls previousLabel="Prev" nextLabel="Next" (pageChange)="p = $event"></pagination-controls> --> -->
