@@ -93,7 +93,7 @@ class DatabaseOperations:
 
     @staticmethod
     def get_own_post(owner_id):
-        sql = "SELECT unique_blog_id as id, blog_title as title, blog_content as description, post_time AS posttime FROM cs6156_login_microservice.blog_info Where owner_id = %s order by posttime;"
+        sql = "SELECT owner_id as id, blog_title as title, blog_content as description, post_time AS posttime FROM cs6156_login_microservice.blog_info Where owner_id = %s order by posttime desc;"
         conn = DatabaseOperations._get_connection()
         cur = conn.cursor()
         try:
@@ -105,7 +105,7 @@ class DatabaseOperations:
     
     @staticmethod
     def get_all_post():
-        sql = "SELECT unique_blog_id as id, blog_title as title, blog_content as description, post_time AS posttime FROM cs6156_login_microservice.blog_info order by posttime;"
+        sql = "SELECT owner_id as id, blog_title as title, blog_content as description, post_time AS posttime FROM cs6156_login_microservice.blog_info order by posttime desc;"
         conn = DatabaseOperations._get_connection()
         cur = conn.cursor()
         try:
