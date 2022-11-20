@@ -3,6 +3,9 @@ import { AddPostService } from './add-post.service';
 import { Post } from '../models/post.model';
 import { Router } from '@angular/router';
 import { CommonService } from '../service/common.service';
+import { TagModel } from 'ngx-chips/core/tag-model';
+import { Observable, of } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-add-post',
@@ -11,6 +14,12 @@ import { CommonService } from '../service/common.service';
   providers: [ AddPostService, CommonService ]
 })
 export class AddPostComponent {
+  items = ['Pizza', 'Pasta', 'Parmesan'];
+  name: any;
+  itemsAsObjects = [
+    { value: 0, name: 'Angular' },
+    { value: 1, name: 'React' },
+  ];
 
   @ViewChild('closeBtn') closeBtn: ElementRef<HTMLInputElement> = {} as ElementRef;
   public post : Post;
@@ -19,13 +28,13 @@ export class AddPostComponent {
     this.post = new Post();
   }
 
+  
+
   addPost() {
     if(this.post.title && this.post.description){
       this.addPostService.addPost(this.post).subscribe({
         next: (response: any) => {
-          //this.closeBtn.nativeElement.click();
           this.commonService.notifyPostAddition();
-          console.log("here")
           console.log(response)
           var owner_id = '7d529dd4-548b-4258-aa8e-23e34dc8d43d'
           this.router.navigate(['/'+owner_id+'/posts']);

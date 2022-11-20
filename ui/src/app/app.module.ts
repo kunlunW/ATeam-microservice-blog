@@ -7,11 +7,14 @@ import { AppComponent } from './app.component';
 import { RouterOutlet } from "@angular/router";
 import { AppRoutingModule } from "./app-routing.module";
 import { ReactiveFormsModule } from "@angular/forms";
+import { TagInputModule } from 'ngx-chips';
+import { AddPostComponent } from './add-post/add-post.component';
 
 // @NgModule decorator with its metadata
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    AddPostComponent
   ],
   imports: [
     BrowserModule,
@@ -19,7 +22,8 @@ import { ReactiveFormsModule } from "@angular/forms";
     HttpClientModule,
     RouterOutlet,
     AppRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    TagInputModule
   ],
   providers: [],
   bootstrap: [AppComponent]

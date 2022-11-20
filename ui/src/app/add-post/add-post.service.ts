@@ -12,6 +12,7 @@ export class AddPostService {
   addPost(post: Post){
     return this.http.post('http://127.0.0.1:5011/createPost',{
       title : post.title,
+      tag : post.tag,
       description : post.description
     })
   }

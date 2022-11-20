@@ -1,6 +1,8 @@
 <form id="add-post-form">
   <label><b>Title</b></label><br>
   <input name="title" type="text" [(ngModel)]="post.title" class="form-control" id="title-field"><br>
+  <label><b>Tags</b></label><br>
+  <input name="tag" type="text" [(ngModel)]="post.tag" class="form-control" id="title-field"><br>
   <label><b>Content</b></label><br>
   <textarea name = "description" [(ngModel)]="post.description" class="form-control" id="description-field" rows="14" cols="80"></textarea><br>
   <button (click)="addPost()" type="button" id="post-submit-btn">Add</button>
