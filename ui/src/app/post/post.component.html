@@ -1,5 +1,5 @@
 <div class="list-group">
-  <a *ngFor="let post of posts" href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+  <a *ngFor="let post of posts" href="/" class="list-group-item list-group-item-action flex-column align-items-start">
     <div class="d-flex w-100 justify-content-between">
       <h5 class="mb-1">{{post.title}}</h5>
       <small>3 days ago</small>
@@ -8,7 +8,7 @@
     <small>read more...</small>
   </a>
 </div>
-
+<!-- 
 <table class="table table-bordered">
   <tr>
     <th>ID</th>
@@ -18,7 +18,7 @@
   </tr>
   <tr *ngFor="let post of posts">
   <!-- <tr> -->
-    <td>
+    <!-- <td>
       {{ post.id }}
     </td>
     <td>
@@ -32,4 +32,4 @@
     </td>
   </tr>
 </table>
-<!-- <pagination-controls previousLabel="Prev" nextLabel="Next" (pageChange)="p = $event"></pagination-controls> -->
+<pagination-controls previousLabel="Prev" nextLabel="Next" (pageChange)="p = $event"></pagination-controls> --> -->

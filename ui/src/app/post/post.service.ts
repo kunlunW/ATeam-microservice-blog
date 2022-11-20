@@ -6,12 +6,12 @@ import { User } from '../models/user.model';
 export class PostService {
 
   private url = 'http://127.0.0.1:5011';
-	constructor(private http: HttpClient){
+	constructor(private HttpClient: HttpClient){
 
 	}
 
   getPost(owner_id:string){
-    return this.http.get(this.url + '/' + owner_id + '/posts');
+    return this.HttpClient.get(this.url + '/' + owner_id + '/posts');
   }
 }
 

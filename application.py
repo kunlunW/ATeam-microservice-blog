@@ -64,6 +64,15 @@ def get_blog(owner_id):
         response = Response("404 NOT FOUND", status=404, content_type="application/json")
     return response
 
+@app.route("/allposts", methods=["POST", "GET"])
+def get_allblog():
+    result = DatabaseOperations.get_all_post()
+    if result:
+        response = Response(json.dumps(result, default=str), status=200, content_type="application/json")
+    else:
+        response = Response("404 NOT FOUND", status=404, content_type="application/json")
+    return response
+
 if __name__ == "__main__":
     app.debug = True
     app.run(host="0.0.0.0", port=5011)
