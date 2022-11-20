@@ -8,7 +8,8 @@ const routes: Routes = [
   {path: "users", loadChildren: () => import("./user/user.module").then(module => module.UserModule)},
   {path: "users/:id", loadChildren: () => import("./user/user.module").then(module => module.UserModule)},
   {path: ":owner_id/posts", loadChildren: () => import("./post/post.module").then(module => module.PostModule)},
-  {path: "createPost", loadChildren: () => import("./add-post/add-post.module").then(module => module.AddPostModule)}
+  {path: "createPost", loadChildren: () => import("./add-post/add-post.module").then(module => module.AddPostModule)},
+  {path: "allposts", loadChildren: () => import("./all-post/all-post.module").then(module => module.AllPostModule)}
 ]
 
 @NgModule({

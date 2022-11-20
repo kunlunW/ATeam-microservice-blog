@@ -102,6 +102,18 @@ class DatabaseOperations:
             return None
         result = cur.fetchall()
         return result
+    
+    @staticmethod
+    def get_all_post():
+        sql = "SELECT unique_blog_id as id, blog_title as title, blog_content as description, post_time AS posttime FROM cs6156_login_microservice.blog_info;"
+        conn = DatabaseOperations._get_connection()
+        cur = conn.cursor()
+        try:
+            cur.execute(sql)
+        except:
+            return None
+        result = cur.fetchall()
+        return result
 
 
    

@@ -45,26 +45,4 @@ export class PostComponent implements OnInit {
     };
 
   };
-    // this.post_service.getPosts().subscribe((response: any) => {
-    //   console.log('result is ', response);
-    //   this.posts = response['data'];
-    //   this.posts = Array.of(this.posts)
-    // });
-
-  // getComments() {
-  //   let url = this.router.url;
-
-  //   if (url.includes('posts/')) {
-  //     this.comments.blog_id = url.split("/")[2];
-  //     this.commentsService.getCommentsByBlogID(this.comments.blog_id).subscribe((result: any) => {
-  //       this.comments = result;
-  //       console.log('result is ', result);
-  //   })
-  //     } else {
-  //       alert('wrong url')
-  //     };
-
-  // };
-
 }
-
