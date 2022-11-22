@@ -8,12 +8,15 @@ import { RouterOutlet } from "@angular/router";
 import { AppRoutingModule } from "./app-routing.module";
 import { ReactiveFormsModule } from "@angular/forms";
 import { TagInputModule } from 'ngx-chips';
+import { TagComponent } from './tag/tag.component';
 import { AddPostComponent } from './add-post/add-post.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 // @NgModule decorator with its metadata
 @NgModule({
   declarations: [
     AppComponent,
+    TagComponent,
     AddPostComponent
   ],
   imports: [
@@ -23,6 +26,7 @@ import { AddPostComponent } from './add-post/add-post.component';
     RouterOutlet,
     AppRoutingModule,
     ReactiveFormsModule,
+    BrowserAnimationsModule,
     TagInputModule
   ],
   providers: [],

@@ -3,9 +3,7 @@ import { AddPostService } from './add-post.service';
 import { Post } from '../models/post.model';
 import { Router } from '@angular/router';
 import { CommonService } from '../service/common.service';
-import { TagModel } from 'ngx-chips/core/tag-model';
-import { Observable, of } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
+import { TagComponent } from '../tag/tag.component';
 
 @Component({
   selector: 'app-add-post',
@@ -14,23 +12,16 @@ import { filter, map } from 'rxjs/operators';
   providers: [ AddPostService, CommonService ]
 })
 export class AddPostComponent {
-  items = ['Pizza', 'Pasta', 'Parmesan'];
-  name: any;
-  itemsAsObjects = [
-    { value: 0, name: 'Angular' },
-    { value: 1, name: 'React' },
-  ];
-
   @ViewChild('closeBtn') closeBtn: ElementRef<HTMLInputElement> = {} as ElementRef;
   public post : Post;
 
-  constructor(private addPostService: AddPostService, private router: Router, private commonService: CommonService) {
+  constructor(private addPostService: AddPostService, private router: Router, private commonService: CommonService, private tags: TagComponent) {
     this.post = new Post();
   }
 
-  
-
   addPost() {
+    console.log(this.tags.tags);
+
     if(this.post.title && this.post.description){
       this.addPostService.addPost(this.post).subscribe({
         next: (response: any) => {

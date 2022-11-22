@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core'
 import { CommonModule } from '@angular/common'
-import { AddPostComponent } from "./add-post.component"
-import { AddPostRoutingModule } from "./add-post-routing.module";
+import { TagComponent } from "./tag.component"
+import { TagRoutingModule } from "./tag-routing.module";
 import { RouterModule } from "@angular/router";
 import { FormsModule } from "@angular/forms";
 
@@ -9,9 +9,9 @@ import { FormsModule } from "@angular/forms";
   declarations: [],
   imports: [
     CommonModule,
-    AddPostRoutingModule,
+    TagRoutingModule,
     RouterModule,
     FormsModule
   ]
 })
-export class AddPostModule { }
+export class TagModule { }
