@@ -12,16 +12,14 @@ import { TagModel } from 'ngx-chips/core/tag-model';
 })
 export class TagComponent {
   name: any;
-  // itemsAsObjects = [];
-  public tags = [{ value: 0, name: 'Angular' }];
+  itemsAsObjects = [];
+  //public tags = [{ value: 0, name: 'Angular' }];
 
 
   constructor(private http: HttpClient) {}
 
   onAdding(tag: any): Observable<TagModel> {
     const confirm = window.confirm('Do you really want to add this tag?');
-    this.tags.concat(tag.name);
-    console.log(this.tags);
     return of(tag).pipe(filter(() => confirm));
   }
 

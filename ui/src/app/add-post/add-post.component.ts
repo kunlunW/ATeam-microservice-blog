@@ -3,7 +3,6 @@ import { AddPostService } from './add-post.service';
 import { Post } from '../models/post.model';
 import { Router } from '@angular/router';
 import { CommonService } from '../service/common.service';
-import { TagComponent } from '../tag/tag.component';
 
 @Component({
   selector: 'app-add-post',
@@ -15,13 +14,11 @@ export class AddPostComponent {
   @ViewChild('closeBtn') closeBtn: ElementRef<HTMLInputElement> = {} as ElementRef;
   public post : Post;
 
-  constructor(private addPostService: AddPostService, private router: Router, private commonService: CommonService, private tags: TagComponent) {
+  constructor(private addPostService: AddPostService, private router: Router, private commonService: CommonService) {
     this.post = new Post();
   }
 
   addPost() {
-    console.log(this.tags.tags);
-
     if(this.post.title && this.post.description){
       this.addPostService.addPost(this.post).subscribe({
         next: (response: any) => {
