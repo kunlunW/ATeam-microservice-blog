@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { AddPostComponent } from './add-post.component';
 
 describe('AddPostComponent', () => {

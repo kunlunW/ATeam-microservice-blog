@@ -1,7 +1,11 @@
 <form id="add-post-form">
   <label><b>Title</b></label><br>
   <input name="title" type="text" [(ngModel)]="post.title" class="form-control" id="title-field"><br>
-  <app-tag></app-tag>
+  <label><b>Tag</b></label><br>
+  <tag-input [ngModel]="post.tag" [ngModelOptions]="{standalone: true}" [displayBy]="'name'" [maxItems] = "3"  
+        (onAdd)="onAdding($event)"
+        (onRemove)="onRemoving($event)" [separatorKeyCodes]="[32]">
+  </tag-input>
   <label><b>Content</b></label><br>
   <textarea name = "description" [(ngModel)]="post.description" class="form-control" id="description-field" rows="14" cols="80"></textarea><br>
   <button (click)="addPost()" type="button" id="post-submit-btn">Add</button>

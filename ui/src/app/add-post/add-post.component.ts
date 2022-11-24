@@ -3,6 +3,8 @@ import { AddPostService } from './add-post.service';
 import { Post } from '../models/post.model';
 import { Router } from '@angular/router';
 import { CommonService } from '../service/common.service';
+import { Observable, of } from 'rxjs';
+import { TagModel } from 'ngx-chips/core/tag-model';
 
 @Component({
   selector: 'app-add-post',
@@ -11,6 +13,8 @@ import { CommonService } from '../service/common.service';
   providers: [ AddPostService, CommonService ]
 })
 export class AddPostComponent {
+  tags = '';
+
   @ViewChild('closeBtn') closeBtn: ElementRef<HTMLInputElement> = {} as ElementRef;
   public post : Post;
 
@@ -18,7 +22,19 @@ export class AddPostComponent {
     this.post = new Post();
   }
 
+  onAdding(tag: any): Observable<TagModel> {
+    this.tags += tag.name;
+    this.tags += " ";
+    return of(tag).pipe();
+  }
+
+  onRemoving(tag: any): Observable<TagModel> {
+    return of(tag).pipe();
+  }
+
   addPost() {
+    this.post.tag = this.tags;
+    console.log(this.post);
     if(this.post.title && this.post.description){
       this.addPostService.addPost(this.post).subscribe({
         next: (response: any) => {
