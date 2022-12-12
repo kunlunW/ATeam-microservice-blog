@@ -37,7 +37,7 @@ class DatabaseOperations:
         sql = "SELECT * FROM cs6156_login_microservice.user_info where first_name = %s AND password = %s";
         conn = DatabaseOperations._get_connection()
         cur = conn.cursor()
-        res = cur.execute(sql, args=(first_name, password,))
+        res = cur.execute(sql, args=(first_name, password))
         result = cur.fetchone()
         if result:
             CURRENT_USER_ID = result['unique_user_id']
@@ -51,7 +51,7 @@ class DatabaseOperations:
             return fail_response
 
     @staticmethod
-    def new_blog_post(blog_title, blog_content, post_time):
+    def new_blog_post(blog_title, blog_content, post_time, tags):
         #init vars
         new_blog_id = ""
         total_post = 0 
@@ -62,26 +62,23 @@ class DatabaseOperations:
         cur = conn.cursor()
         res = cur.execute(sql, args=(CURRENT_USER_ID))
         result = cur.fetchone()
-
-        #print("debug info dataoperations-------------------------------", result)
+        tag1 = None if len(tags) == 0 else tags[0]
+        tag2 = None if len(tags) <= 1 else tags[1]
+        tag3 = None if len(tags) <= 2 else tags[2]
         
         if result:
             new_blog_id =  result["owner_id"] + "-" + str(int(result["max_count"]) + 1)
             total_post = int(result["max_count"]) + 1
-            #print("Type of total post---------------------------------------", type(total_post))
         else:
             new_blog_id = CURRENT_USER_ID + "-" + str(1)
             total_post = 1
-        
-        #print("new_id ---------------------------------------------", new_blog_id)
      
         #enter new entry into blog_info table
-        sql = "INSERT INTO cs6156_login_microservice.blog_info VALUES (%s, %s, %s, %s, %s, %s)";
+        sql = "INSERT INTO cs6156_login_microservice.blog_info VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)";
         conn = DatabaseOperations._get_connection()
-        #print("debug connection ---------------------------------------------", conn)
+
         cur = conn.cursor()
-        res = cur.execute(sql, args=(new_blog_id, CURRENT_USER_ID, blog_title, blog_content, post_time, total_post))
-        #print("debug res ---------------------------------------", res)
+        res = cur.execute(sql, args=(new_blog_id, CURRENT_USER_ID, blog_title, blog_content, post_time, total_post, tag1, tag2, tag3))
         if res:
             posting_success = {'status': 'success', 'message': 'Successfully Posted'}
             success_response = Response(json.dumps(posting_success), status=200, content_type="application.json")
