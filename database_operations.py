@@ -2,11 +2,6 @@
 import pymysql
 from flask import Flask, Response, request
 import json
-import os
-
-# #TODO: INIT TO None
-# CURRENT_USER_ID = '7d529dd4-548b-4258-aa8e-23e34dc8d43d'
-
 
 class DatabaseOperations:
 
@@ -18,7 +13,8 @@ class DatabaseOperations:
 
         usr = "root"
         pw = "84443295412lx."
-        h = "localhost"
+        # h = "localhost"
+        h = "clouddb.cvlavt0m8fg8.us-east-1.rds.amazonaws.com"
 
         conn = pymysql.connect(
             user=usr,
