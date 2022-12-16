@@ -63,6 +63,13 @@ def get_blog_by_id(blog_id):
     return response
 
 
+@app.route("/deleteblog", methods=["GET"])
+def remove_notification():
+    blog_id = request.args.get('blog_id')
+    result = DatabaseOperations.delete_blog_by_blogid(blog_id)
+    return result
+
+
 @app.route("/posts/<blog_id>/likecount", methods=["GET"])
 def get_like_count(blog_id):
     result = DatabaseOperations.get_like_and_dislike_num(blog_id)
