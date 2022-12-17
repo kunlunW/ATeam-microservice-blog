@@ -83,7 +83,7 @@ class DatabaseOperations:
 
     @staticmethod
     def get_own_post(owner_id):
-        sql = "SELECT * FROM blogs.blog_info Where owner_id = %s ORDER BY unique_blog_id DESC;"
+        sql = "SELECT * FROM blogs.blog_info Where owner_id = %s ORDER BY post_time DESC;"
         conn = DatabaseOperations._get_connection()
         cur = conn.cursor()
         try:
@@ -96,7 +96,7 @@ class DatabaseOperations:
 
     @staticmethod
     def get_all_posts():
-        sql = "SELECT * FROM blogs.blog_info ORDER BY unique_blog_id DESC;"
+        sql = "SELECT * FROM blogs.blog_info ORDER BY post_time DESC;"
         conn = DatabaseOperations._get_connection()
         cur = conn.cursor()
         try:
