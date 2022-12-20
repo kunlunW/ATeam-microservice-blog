@@ -286,4 +286,21 @@ class DatabaseOperations:
         else:
             message = {'status': 'failed', 'message': 'dislike failed removed!'}
             response = Response(json.dumps(message), status=200, content_type="application.json")
-            return response 
+            return response
+
+    def delete_blog_by_blogid(blog_id):
+        blog_sql = "DELETE FROM blogs.blog_info WHERE unique_blog_id = (%s)"
+        comment_sql = "DELETE FROM commentdb.comments WHERE blog_id = (%s)"
+        conn = DatabaseOperations._get_connection()
+
+        cur = conn.cursor()
+        blog_res = cur.execute(blog_sql, args=(blog_id))
+        comment_res = cur.execute(comment_sql, args=(blog_id))
+        if blog_res and comment_res:
+            blog_deleted = {'status': 'success', 'message': 'Successfully deleted blog'}
+            success_response = Response(json.dumps(blog_deleted), status=200, content_type="application.json")
+            return success_response
+        else:
+            delete_failed = {'status': 'fail', 'message': 'Failed to delete blog'}
+            fail_response = Response(json.dumps(delete_failed), status=200, content_type="application.json")
+            return fail_response
