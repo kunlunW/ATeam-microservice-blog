@@ -38,6 +38,7 @@ class DatabaseOperations:
         cur = conn.cursor()
         res = cur.execute(sql, args=(owner_id))
         result = cur.fetchone()
+        conn.close()
         tag1 = None if len(tags) == 0 else tags[0]
         tag2 = None if len(tags) <= 1 else tags[1]
         tag3 = None if len(tags) <= 2 else tags[2]
@@ -52,9 +53,9 @@ class DatabaseOperations:
         #enter new entry into blog_info table
         sql = "INSERT INTO blogs.blog_info VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, '[]', 0, '[]', 0)"
         conn = DatabaseOperations._get_connection()
-
         cur = conn.cursor()
         res = cur.execute(sql, args=(new_blog_id, owner_id, blog_title, blog_content, post_time, total_post, tag1, tag2, tag3))
+        conn.close()
         if res:
             posting_success = {'status': 'success', 'message': 'Successfully Posted'}
             success_response = Response(json.dumps(posting_success), status=200, content_type="application.json")
@@ -77,6 +78,7 @@ class DatabaseOperations:
             return None
         
         result = cur.fetchone()
+        conn.close()
         result = result["COUNT(*)"]
         return result    
 
@@ -91,6 +93,7 @@ class DatabaseOperations:
         except:
             return None
         result = cur.fetchall()
+        conn.close()
         return result
     
 
@@ -104,6 +107,7 @@ class DatabaseOperations:
         except:
             return None
         result = cur.fetchall()
+        conn.close()
         return result
 
 
@@ -117,6 +121,7 @@ class DatabaseOperations:
         except:
             return None
         result = cur.fetchone()
+        conn.close()
         return result 
 
 
@@ -128,6 +133,7 @@ class DatabaseOperations:
         cur = conn.cursor()
         blog_res = cur.execute(blog_sql, args=(blog_id))
         comment_res = cur.execute(comment_sql, args=(blog_id))
+        conn.close()
         if blog_res:
             blog_deleted = {'status': 'success', 'message': 'Successfully deleted blog'}
             success_response = Response(json.dumps(blog_deleted), status=200, content_type="application.json")
@@ -146,6 +152,7 @@ class DatabaseOperations:
 
         cur.execute(sql, (blog_id, user_id))
         result = list(cur.fetchone().values())[0]
+        conn.close()
         if result:
             return 1
         else:
@@ -160,6 +167,7 @@ class DatabaseOperations:
 
         cur.execute(sql, (blog_id, user_id))
         result = list(cur.fetchone().values())[0]
+        conn.close()
         if result:
             return 1
         else:
@@ -173,6 +181,7 @@ class DatabaseOperations:
         sql = "select likecount, dislikecount from blogs.blog_info where unique_blog_id = %s"
         cur.execute(sql, blog_id)
         res = cur.fetchone()
+        conn.close()
         return res
 
 
@@ -206,6 +215,7 @@ class DatabaseOperations:
 
         plus_sql = "update blogs.blog_info set likecount = likecount + 1 where unique_blog_id=%s"
         cur.execute(plus_sql, blog_id)
+        conn.close()
 
         if res:
             message = {'status': 'success', 'message': 'like Successfully added!'}
@@ -230,6 +240,7 @@ class DatabaseOperations:
 
         plus_sql = "update blogs.blog_info set dislikecount = dislikecount + 1 where unique_blog_id=%s"
         cur.execute(plus_sql, blog_id)
+        conn.close()
 
         if res:
             message = {'status': 'success', 'message': 'dislike Successfully added!'}
@@ -254,6 +265,7 @@ class DatabaseOperations:
 
         minus_sql = "update blogs.blog_info set likecount = likecount - 1 where unique_blog_id=%s"
         cur.execute(minus_sql, blog_id)
+        conn.close()
 
         if res:
             message = {'status': 'success', 'message': 'like Successfully removed!'}
@@ -278,6 +290,7 @@ class DatabaseOperations:
 
         minus_sql = "update blogs.blog_info set dislikecount = dislikecount - 1 where unique_blog_id=%s"
         cur.execute(minus_sql, blog_id)
+        conn.close()
 
         if res:
             message = {'status': 'success', 'message': 'dislike Successfully removed!'}
