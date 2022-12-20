@@ -3,7 +3,12 @@ from datetime import datetime
 import json
 from database_operations import DatabaseOperations
 from flask_cors import CORS
+from google.oauth2 import id_token
+from google.auth.transport import requests
+import jwt
+
 import sys
+CLIENT_ID = "917121905012-jt7do84gpaurpefgsljbme3dqes29gim.apps.googleusercontent.com"
 
 # Create the Flask application object.
 app = Flask(__name__)
@@ -13,19 +18,49 @@ CORS(app)
 
 @app.route("/createPost", methods=["POST", "GET"])
 def post_blog():
+
+
     content_type = request.headers.get('Content-Type')
     if content_type == 'application/json':
+
         new_blog = request.json
 
-        owner_id = new_blog['username']
-        title = new_blog["title"]
-        description = new_blog["description"]
-        tags = new_blog["tag"].split(" ")
-        while("" in tags):
-            tags.remove("")
-        post_time = datetime.now().isoformat(sep=" ", timespec="seconds")
+        jwt_token = new_blog['jwt_token'] # getting the jwt token
 
-        return DatabaseOperations.new_blog_post(owner_id, title, description, post_time, tags)
+        print("JWT Token is: ", jwt_token)
+
+        try:
+            # Specify the CLIENT_ID of the app that accesses the backend:
+            idinfo = id_token.verify_oauth2_token(jwt_token, requests.Request(), CLIENT_ID)
+
+            # Or, if multiple clients access the backend server:
+            # idinfo = id_token.verify_oauth2_token(token, requests.Request())
+            # if idinfo['aud'] not in [CLIENT_ID_1, CLIENT_ID_2, CLIENT_ID_3]:
+            #     raise ValueError('Could not verify audience.')
+
+            # If auth request is from a G Suite domain:
+            # if idinfo['hd'] != GSUITE_DOMAIN_NAME:
+            #     raise ValueError('Wrong hosted domain.')
+
+            # ID token is valid. Get the user's Google Account ID from the decoded token.
+            print(idinfo)
+
+            owner_id = idinfo['email'][0: idinfo['email'].index('@')]
+
+            print(owner_id)
+            title = new_blog["title"]
+            description = new_blog["description"]
+            tags = new_blog["tag"].split(" ")
+            while ("" in tags):
+                tags.remove("")
+            post_time = datetime.now().isoformat(sep=" ", timespec="seconds")
+            return DatabaseOperations.new_blog_post(owner_id, title, description, post_time, tags)
+
+        except ValueError:
+            print("Auth went wrong!")
+            pass
+
+        # owner_id = new_blog['username']
 
     else: 
         failure_message = {'status': 'fail', 'message': 'Log in required'}
@@ -117,7 +152,35 @@ def get_blog_number_by_username():
     return response
 
 
+@app.route("/checkbeforelike", methods=["POST"])
+def checkbeforelike():
+    content_type = request.headers.get('Content-Type')
+    if content_type == 'application/json':
+        jwt_body = request.json
+        jwt_token = jwt_body['token']  # getting the jwt token
+
+        try:
+            # Specify the CLIENT_ID of the app that accesses the backend:
+            idinfo = id_token.verify_oauth2_token(jwt_token, requests.Request(), CLIENT_ID)
+            owner_id = str(idinfo['email'][0: idinfo['email'].index('@')])
+
+            # response = Response(json.dump(owner_id), status=200, content_type="application/txt")
+            print("Owner id is: ", owner_id)
+            return owner_id
+
+        except ValueError:
+            print("Auth went wrong!")
+            pass
+
+@app.route("/deleteblog", methods=["GET"])
+def remove_notification():
+    blog_id = request.args.get('blog_id')
+    result = DatabaseOperations.delete_blog_by_blogid(blog_id)
+    return result
+
+
+
 if __name__ == "__main__":
-    app.debug = True
+    app.debug = False
     app.run(host="0.0.0.0", port=5012)
     
