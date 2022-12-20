@@ -128,7 +128,7 @@ class DatabaseOperations:
         cur = conn.cursor()
         blog_res = cur.execute(blog_sql, args=(blog_id))
         comment_res = cur.execute(comment_sql, args=(blog_id))
-        if blog_res and comment_res:
+        if blog_res:
             blog_deleted = {'status': 'success', 'message': 'Successfully deleted blog'}
             success_response = Response(json.dumps(blog_deleted), status=200, content_type="application.json")
             return success_response
