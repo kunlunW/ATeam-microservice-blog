@@ -5,7 +5,7 @@ from database_operations import DatabaseOperations
 from flask_cors import CORS
 from google.oauth2 import id_token
 from google.auth.transport import requests
-import jwt
+
 
 import sys
 CLIENT_ID = "917121905012-jt7do84gpaurpefgsljbme3dqes29gim.apps.googleusercontent.com"
@@ -66,7 +66,7 @@ def post_blog():
         failure_message = {'status': 'fail', 'message': 'Log in required'}
         fail_response = Response(json.dumps(failure_message), status=200, content_type="application.json")
         return fail_response
-   
+
 
 @app.route("/<owner_id>/myposts", methods=["POST", "GET"])
 def get_blog(owner_id):
@@ -178,14 +178,7 @@ def checkbeforelike():
         except ValueError:
             print("Auth went wrong!")
             pass
-
-@app.route("/deleteblog", methods=["GET"])
-def remove_notification():
-    blog_id = request.args.get('blog_id')
-    result = DatabaseOperations.delete_blog_by_blogid(blog_id)
-    return result
-
-
+        
 
 if __name__ == "__main__":
     app.debug = False
