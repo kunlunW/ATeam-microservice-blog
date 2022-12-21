@@ -75,6 +75,7 @@ class DatabaseOperations:
         try:
             cur.execute(sql, username)
         except:
+            conn.close()
             return None
         
         result = cur.fetchone()
@@ -91,6 +92,7 @@ class DatabaseOperations:
         try:
             cur.execute(sql,owner_id)
         except:
+            conn.close()
             return None
         result = cur.fetchall()
         conn.close()
@@ -105,6 +107,7 @@ class DatabaseOperations:
         try:
             cur.execute(sql)
         except:
+            conn.close()
             return None
         result = cur.fetchall()
         conn.close()
@@ -119,6 +122,7 @@ class DatabaseOperations:
         try:
             cur.execute(sql, blog_id)
         except:
+            conn.close()
             return None
         result = cur.fetchone()
         conn.close()
