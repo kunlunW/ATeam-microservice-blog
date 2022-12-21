@@ -173,7 +173,8 @@ def checkbeforelike():
 
             # response = Response(json.dump(owner_id), status=200, content_type="application/txt")
             print("Owner id is: ", owner_id)
-            return owner_id
+            message = {"owner_id": owner_id}
+            return Response(json.dumps(message, default=str), status=200, content_type="application/json")
 
         except ValueError:
             print("Auth went wrong!")
